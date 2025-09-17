@@ -1,0 +1,74 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "390d7c94",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "2장 자료형과 연산자\n",
+    "1절 변수\n",
+    "\t선언X, 할당과 동시에 타입 설정\n",
+    "\t문자, _, 숫자 사용가능. 문자로 시작\n",
+    "\t예약어 사용불가.\n",
+    "\t다중 변수 할당 가능(일괄 할당)\n",
+    "2절 화면i/o\n",
+    "\tinput(label) : 사용자부터 문자열 입력\n",
+    "\tprint(출력내용들, sep='구분자', end='종결어구')\n",
+    "3절 기본자료형\n",
+    "\t숫자 : int, float, complex(복소수)\n",
+    "\t\tint/int => 실수\n",
+    "\t\t지수형표현ex1.12e-20 지수형표현은 실수\n",
+    "\t문자 : +, *연산\n",
+    "\t      \t정규표현식 : re.findall(), re.search()\n",
+    "\t\t문자열 인덱싱 str_[idx] /문자열슬라이싱 str_[from:to:step]\n",
+    "\t논리 : True/False\n",
+    "\t\tFalse로 간주 : [], {}, (), \"\", 0, None\n",
+    "4절 포맷팅\n",
+    "\t\"{[인덱스]:[공백대체문자][정렬방식][자릿수][타입]}\".format(변수명)\n",
+    "5절 연산자\n",
+    "\t산술연산자 : +, -, *, /(연산결과 실수), //(몫), %(나머지), **(제곱)\n",
+    "\t할당연산자 : =, +=, -=, *=, /=, //=, %=, **=\n",
+    "\t논리연산자 : and, or, not, \n",
+    "\t\t   &, | (연산자 앞뒤에 논리값이 올 경우)\n",
+    "\t비교연산자 : <, <=, >, >=, ==, != (연산자 우선 순위를 고려하여 다른 연산자와 사용)\n",
+    "\t비트연산자 : &, |, ^, ~"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.9"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": false,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
