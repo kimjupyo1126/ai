@@ -1,0 +1,37 @@
+ch06.모듈과 패키지
+1절 파이썬 모듈  사용
+	(1) imprt A        - A모듈 가져옴
+	(2) fromA import B - A 패키지 안의 B 모듈 가져옴
+	    fromA.B import C - A 안의 B 모듈 가져옴
+	(3) import A as B   - A모듈을 B이름으로 가져옴
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a
