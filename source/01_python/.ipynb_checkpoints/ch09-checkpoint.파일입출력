@@ -2,8 +2,8 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 2,
-   "id": "b6ca01c1",
+   "execution_count": 1,
+   "id": "5b4bd03e",
    "metadata": {},
    "outputs": [
     {
@@ -52,11 +52,13 @@
    ]
   },
   {
-   "cell_type": "markdown",
-   "id": "eb7ff821",
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ab8270ef",
    "metadata": {},
+   "outputs": [],
    "source": [
-    "<b><font size=\"7\" color=\"red\">ch07.객체지향 프로그래밍</font></b>\n"
+    "<b><font size=\"7\" color=\"red\">ch09_파일입출력</font></b>"
    ]
   }
  ],

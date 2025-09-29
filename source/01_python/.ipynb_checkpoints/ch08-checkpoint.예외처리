@@ -3,7 +3,7 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "c466fd9e",
+   "id": "63dd3002",
    "metadata": {},
    "outputs": [
     {
@@ -54,11 +54,11 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d45e8f83",
+   "id": "5ab94842",
    "metadata": {},
    "outputs": [],
    "source": [
-    "<b><font size=\"7\" color=\"red\">ch09_파일입출력</font></b>"
+    "<b><font size=\"7\" color=\"red\">ch07.객체지향 프로그래밍</font></b>"
    ]
   }
  ],
