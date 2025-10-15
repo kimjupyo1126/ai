@@ -1,0 +1,526 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "99b18a7e",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "<style>\n",
+       "div.container{width:99% !important;}\n",
+       "div.cell.code_cell.rendered{width:100%;}\n",
+       "div.input_prompt{padding:0px;}\n",
+       "div.CodeMirror {font-family:Consolas; font-size:22pt;}\n",
+       "div.text_cell_render.rendered_html{font-size:18pt;}\n",
+       "div.output {font-size:22pt; font-weight:bold;}\n",
+       "div.input {font-family:Consolas; font-size:22pt;}\n",
+       "div.prompt {min-width:70px;}\n",
+       "div#toc-wrapper{padding-top:120px;}\n",
+       "div.text_cell_render ul li{font-size:22pt;padding:5px;}\n",
+       "table.dataframe{font-size:22px;}\n",
+       "</style>\n"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "from IPython.display import display, HTML\n",
+    "display(HTML(\"\"\"\n",
+    "<style>\n",
+    "div.container{width:99% !important;}\n",
+    "div.cell.code_cell.rendered{width:100%;}\n",
+    "div.input_prompt{padding:0px;}\n",
+    "div.CodeMirror {font-family:Consolas; font-size:22pt;}\n",
+    "div.text_cell_render.rendered_html{font-size:18pt;}\n",
+    "div.output {font-size:22pt; font-weight:bold;}\n",
+    "div.input {font-family:Consolas; font-size:22pt;}\n",
+    "div.prompt {min-width:70px;}\n",
+    "div#toc-wrapper{padding-top:120px;}\n",
+    "div.text_cell_render ul li{font-size:22pt;padding:5px;}\n",
+    "table.dataframe{font-size:22px;}\n",
+    "</style>\n",
+    "\"\"\"))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2b35fb75",
+   "metadata": {},
+   "source": [
+    "<b><font size=\"7\" color=\"red\">ch11. 데이터프레임과 시리즈(Pandas)</font></b>\n",
+    "# 9절 데이터 그룹화 및 집계"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "cedba76c",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "     Sepal.Length  Sepal.Width  Petal.Length  Petal.Width     Species\n",
+      "0             5.1          3.5           1.4          0.2      setosa\n",
+      "49            5.0          3.3           1.4          0.2      setosa\n",
+      "50            7.0          3.2           4.7          1.4  versicolor\n",
+      "99            5.7          2.8           4.1          1.3  versicolor\n",
+      "100           6.3          3.3           6.0          2.5   virginica\n"
+     ]
+    }
+   ],
+   "source": [
+    "import statsmodels.api as sm\n",
+    "iris = sm.datasets.get_rdataset('iris').data\n",
+    "print(iris.iloc[[0, 49, 50, 99, 100]])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1a81e1b3",
+   "metadata": {},
+   "source": [
+    "# 9.1 group by\n",
+    "cf.pivot_table"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "1fb0ddc0",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "C:\\Users\\Admin\\AppData\\Local\\Temp\\ipykernel_7720\\1942034619.py:8: FutureWarning: Indexing with multiple keys (implicitly converted to a tuple of keys) will be deprecated, use a list instead.\n",
+      "  iris.groupby(by=iris.Species)['Sepal.Length','Sepal.Width'].sum()\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Sepal.Length</th>\n",
+       "      <th>Sepal.Width</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Species</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>setosa</th>\n",
+       "      <td>250.3</td>\n",
+       "      <td>171.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>versicolor</th>\n",
+       "      <td>296.8</td>\n",
+       "      <td>138.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>virginica</th>\n",
+       "      <td>329.4</td>\n",
+       "      <td>148.7</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "            Sepal.Length  Sepal.Width\n",
+       "Species                              \n",
+       "setosa             250.3        171.4\n",
+       "versicolor         296.8        138.5\n",
+       "virginica          329.4        148.7"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 1) 그룹화방법1\n",
+    "# df.groupby(by=[그룹핑할 열][함수적용될출력할열들].기초통계함수()\n",
+    "# [[함수적용해서출력할열들]]생략시 모든 여레 적용됨\n",
+    "iris_grouped = iris.groupby(by='Species')\n",
+    "iris_grouped = iris.groupby(by=iris.Species)\n",
+    "iris_grouped_sum = iris_grouped.sum()\n",
+    "iris_grouped_sum\n",
+    "iris.groupby(by=iris.Species)['Sepal.Length','Sepal.Width'].sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "901fb0d3",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Sepal.Length</th>\n",
+       "      <th>Sepal.Width</th>\n",
+       "      <th>Petal.Length</th>\n",
+       "      <th>Petal.Width</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Species</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>setosa</th>\n",
+       "      <td>250.3</td>\n",
+       "      <td>171.4</td>\n",
+       "      <td>73.1</td>\n",
+       "      <td>12.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>virginica</th>\n",
+       "      <td>329.4</td>\n",
+       "      <td>148.7</td>\n",
+       "      <td>277.6</td>\n",
+       "      <td>101.3</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "           Sepal.Length  Sepal.Width  Petal.Length  Petal.Width\n",
+       "Species                                                        \n",
+       "setosa            250.3        171.4          73.1         12.3\n",
+       "virginica         329.4        148.7         277.6        101.3"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# setosa와 virginica 종별 합\n",
+    "iris_grouped_sum.loc[['setosa','virginica']]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "4ca3ff24",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Species</th>\n",
+       "      <th>Sepal.Length</th>\n",
+       "      <th>Sepal.Width</th>\n",
+       "      <th>Petal.Length</th>\n",
+       "      <th>Petal.Width</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>setosa</td>\n",
+       "      <td>250.3</td>\n",
+       "      <td>171.4</td>\n",
+       "      <td>73.1</td>\n",
+       "      <td>12.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>versicolor</td>\n",
+       "      <td>296.8</td>\n",
+       "      <td>138.5</td>\n",
+       "      <td>213.0</td>\n",
+       "      <td>66.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>virginica</td>\n",
+       "      <td>329.4</td>\n",
+       "      <td>148.7</td>\n",
+       "      <td>277.6</td>\n",
+       "      <td>101.3</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      Species  Sepal.Length  Sepal.Width  Petal.Length  Petal.Width\n",
+       "0      setosa         250.3        171.4          73.1         12.3\n",
+       "1  versicolor         296.8        138.5         213.0         66.3\n",
+       "2   virginica         329.4        148.7         277.6        101.3"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "iris_grouped_sum.reset_index(inplace=True)\n",
+    "iris_grouped_sum"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "869c5669",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Species</th>\n",
+       "      <th>Sepal.Length</th>\n",
+       "      <th>Sepal.Width</th>\n",
+       "      <th>Petal.Length</th>\n",
+       "      <th>Petal.Width</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>setosa</td>\n",
+       "      <td>250.3</td>\n",
+       "      <td>171.4</td>\n",
+       "      <td>73.1</td>\n",
+       "      <td>12.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>virginica</td>\n",
+       "      <td>329.4</td>\n",
+       "      <td>148.7</td>\n",
+       "      <td>277.6</td>\n",
+       "      <td>101.3</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "     Species  Sepal.Length  Sepal.Width  Petal.Length  Petal.Width\n",
+       "0     setosa         250.3        171.4          73.1         12.3\n",
+       "2  virginica         329.4        148.7         277.6        101.3"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# setosa와 virginica의 종별 합\n",
+    "iris_grouped_sum[(iris_grouped_sum['Species']=='setosa' ) | \n",
+    "                 (iris_grouped_sum['Species']=='virginica' )]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "f5740af8",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Species</th>\n",
+       "      <th>Sepal.Length</th>\n",
+       "      <th>Sepal.Width</th>\n",
+       "      <th>Petal.Length</th>\n",
+       "      <th>Petal.Width</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>setosa</td>\n",
+       "      <td>250.3</td>\n",
+       "      <td>171.4</td>\n",
+       "      <td>73.1</td>\n",
+       "      <td>12.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>virginica</td>\n",
+       "      <td>329.4</td>\n",
+       "      <td>148.7</td>\n",
+       "      <td>277.6</td>\n",
+       "      <td>101.3</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "     Species  Sepal.Length  Sepal.Width  Petal.Length  Petal.Width\n",
+       "0     setosa         250.3        171.4          73.1         12.3\n",
+       "2  virginica         329.4        148.7         277.6        101.3"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "iris_grouped_sum[iris_grouped_sum['Species'].isin(['setosa','virginica'])]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "21f8564d",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.9"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": false,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
