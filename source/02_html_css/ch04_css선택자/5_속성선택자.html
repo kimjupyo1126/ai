@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        input{ color: green; }
+        input[ type = "password" ] {
+            color: black;
+        }
+        input[type ^= 'te'] {
+            width: 100px; color: orange;
+        }
+        input[name $= 'me'] {
+            width: 1px solid red; padding: 10px; 
+            outline: 0;
+        }
+            
+        img { width: 50; }
+        img[alt] { /* alt 속성이 있는 경우
+            border: 3px solod red;
+        }
+
+    </script>
+</head>
+<body>
+    <form>
+        이름 <input type="text" name="name" /><br />
+        아뒤 <input type="text" name="id" /><br />
+        비번 <input type="password" name="pw" /><br />
+        전화 <input type="tel" name="tel" /><br />
+        <img src="sulhyun.jpg" alt="설현사진" />
+        <img src="sulhyun.jpg"/>
+        <input type="submit" />
+    </form>
+</body>
+</html>
