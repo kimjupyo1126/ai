@@ -1,28 +1,37 @@
-﻿<!DOCTYPE html>
-
+﻿﻿
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <script>
-        input{ color: green; }
-        input[ type = "password" ] {
-            color: black;
-        }
-        input[type ^= 'te'] {
-            width: 100px; color: orange;
-        }
-        input[name $= 'me'] {
-            width: 1px solid red; padding: 10px; 
-            outline: 0;
-        }
-            
-        img { width: 50; }
-        img[alt] { /* alt 속성이 있는 경우
-            border: 3px solod red;
+    <style>
+        input {
+            color: green;
         }
 
-    </script>
+            input[type='password'] { /*input중 type속성이 password인 경우*/
+                color: black;
+            }
+
+            input[type^='te'] { /*input중 type속성이 te로 시작하는 경우*/
+                width: 100px;
+                color: orange;
+            }
+
+            input[name$='me'] { /*input중 type속성이 me로 끝나는 경우*/
+                border: 1px solid red;
+                padding: 10px;
+                outline: 0;
+            }
+
+        img {
+            width: 50px;
+        }
+
+            img[alt] { /* img중에 alt 속성이 있는 경우*/
+                border: 3px solid red;
+            }
+    </style>
 </head>
 <body>
     <form>
@@ -30,8 +39,8 @@
         아뒤 <input type="text" name="id" /><br />
         비번 <input type="password" name="pw" /><br />
         전화 <input type="tel" name="tel" /><br />
-        <img src="sulhyun.jpg" alt="설현사진" />
-        <img src="sulhyun.jpg"/>
+        <img src="ch04/sulhyun.jpg" alt="설현사진" />
+        <img src="ch04/sulhyun.jpg" />
         <input type="submit" />
     </form>
 </body>
