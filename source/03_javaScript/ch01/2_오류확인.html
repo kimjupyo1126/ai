@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /* al_pha = 20 */
+        var al_pha = 20 // var를 사용하면 전역변수 vs let(지역변수. 특정블록 사용)
+        console.log(2);
+        alert('al_pha 값은 ' + al_pha);
+        console.log(3);
+        al_pha = 'hello';
+        alert('al_pha 값은 ' + al_pha);
+        console.log(4);
+    </script>
+</head>
+<body>
+    <script>
+        document.write('윗 스크립트에서 선언된 al_pha 값은' + al_pha);
+    </script>
+</body>
+</html>
