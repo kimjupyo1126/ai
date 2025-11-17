@@ -2,3 +2,12 @@
 SELECT * FROM TAB; -- 현계정(SCOTT)
 
 -- 1.SELECT
+--10. 사원명, 상사명, 상사의 상사명을 검색하시오(self join)
+SELECT W.ENAME, M.ENAME MANAGER, MM.ENAME TOPMANAGER
+  FROM EMP W, EMP M, EMP MM
+  WHERE W.MGR=M.EMPNO AND M.MGR=MM.EMPNO;
+
+--11. 위의 결과에서 상위 상사가 없는 모든 직원의 이름도 출력되도록 수정하시오(outer join)
+SELECT W.ENAME, M.ENAME MANAGER, MM.ENAME TOPMANAGER
+  FROM EMP W, EMP M, EMP MM
+  WHERE W.MGR=M.EMPNO(+) AND M.MGR=MM.EMPNO(+);
