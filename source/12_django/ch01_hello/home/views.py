@@ -1,7 +1,7 @@
+# home/views.py
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
-
 def home(request):
-   # return HttpResponse("Hello World")
-    return render(request, template_name:"home.html", context:{"msg":"Django(장고)"})
+    # return HttpResponse("<h1>Hello World</h1>")
+    return render(request, "home.html", {"msg":"Django(장고)"})
